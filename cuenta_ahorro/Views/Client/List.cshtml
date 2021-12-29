@@ -1,0 +1,22 @@
+﻿@model IEnumerable<cuenta_ahorro.Models.Client>
+
+<table class="table" id="table-lines-document">
+    <thead>
+        <tr>
+            <th class="text-center">#</th>
+            <th>Nombre</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td> @Html.DisplayFor(modelItem => item.Id) </td>
+                    <td>@Html.DisplayFor(modelItem => item.FullName) </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
