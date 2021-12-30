@@ -1,19 +1,18 @@
-﻿@model IEnumerable<cuenta_ahorro.Models.Client>
+﻿@model IEnumerable<cuenta_ahorro.EF.Entities.Client>
 
-<table class="table" id="table-lines-document">
+<table class="table" id="table-client">
     <thead>
         <tr>
-            <th class="text-center">#</th>
+            <th class="text-center"># Identificación</th>
             <th>Nombre</th>
         </tr>
     </thead>
     <tbody>
         @{
-
             foreach (var item in Model)
             {
                 <tr>
-                    <td> @Html.DisplayFor(modelItem => item.Id) </td>
+                    <td  class="text-center"> SPF - @Html.DisplayFor(modelItem => item.Id) </td>
                     <td>@Html.DisplayFor(modelItem => item.FullName) </td>
                 </tr>
             }

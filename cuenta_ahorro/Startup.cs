@@ -1,10 +1,11 @@
-using cuenta_ahorro.EF;
+﻿using cuenta_ahorro.EF;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
 
 namespace cuenta_ahorro
 {
@@ -20,12 +21,12 @@ namespace cuenta_ahorro
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(this.Configuration.GetConnectionString("DefaultConnection")));
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -48,8 +49,12 @@ namespace cuenta_ahorro
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Client}/{action=Index}/{id?}");
             });
+
+            // Configuramos Rotativa indic�ndole el Path RELATIVO donde se
+            // encuentran los archivos de la herramienta wkhtmltopdf.
+            Rotativa.AspNetCore.RotativaConfiguration.Setup(env);
         }
     }
 }

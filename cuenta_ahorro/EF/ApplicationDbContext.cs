@@ -1,4 +1,4 @@
-﻿using cuenta_ahorro.Models;
+﻿using cuenta_ahorro.EF.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace cuenta_ahorro.EF

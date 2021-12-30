@@ -1,0 +1,67 @@
+﻿@model cuenta_ahorro.Models.History
+
+<div class="container-fluid d-flex justify-content-between">
+    <div class="col-lg-3 pl-0">
+        <a href="#" class="noble-ui-logo d-block mt-3">Noble<span>UI</span></a>                 
+        <p class="mt-1 mb-1"><b>NobleUI Themes</b></p>
+        <p>108,<br> Great Russell St,<br>London, WC1B 3NA.</p>
+        <h5 class="mt-5 mb-2 text-muted">Nombre :</h5>
+        <p>@Model.Client.FullName</p>
+    </div>
+    <div class="col-lg-3 pr-0">
+        <h4 class="font-weight-medium text-uppercase text-right mt-4 mb-2">Cuenta</h4>
+        <h6 class="text-right mb-5 pb-4"># @Model.OpeningSavingAccount.AccountNumber</h6>
+        <p class="text-right mb-1">Saldo Total</p>
+        <h4 class="text-right font-weight-normal">$ @Model.OpeningSavingAccount.Balance</h4>
+        <h6 class="mb-0 mt-3 text-right font-weight-normal mb-2"><span class="text-muted">Fecha Apertura :</span> 25rd Jan 2020</h6>
+        <h6 class="text-right font-weight-normal"><span class="text-muted">Fecha Actual :</span> 12th Jul 2020</h6>
+    </div>
+</div>
+<div class="container-fluid mt-5 d-flex justify-content-center w-100">
+    <div class="table-responsive w-100">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th class="text-center">#</th>
+                    <th class="text-center">Fecha</th>
+                    <th class="text-right"> Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    var count = 1;
+                    foreach (var item in Model.ManagementAccount)
+                    {
+                        var bgColor = item.Type == 0 ? "danger" : "success";
+                        <tr class="text-right table-@bgColor">
+                            <td class="text-center">@count</td>
+                            <td class="text-center"></td>
+                            <td>@item.Amount</td>
+                        </tr>
+                        count++;
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="container-fluid mt-5 w-100">
+    <div class="row">
+        <div class="col-md-6 ml-auto">
+            <div class="table-responsive">
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <td class="text-bold-800">Total Depositado</td>
+                        <td class="text-success text-right">(+) $ @Model.Deposit</td>
+                    </tr>
+                    <tr>
+                        <td>Total retirado</td>
+                        <td class="text-danger text-right">(-) $ @Model.WithDraw</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
