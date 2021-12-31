@@ -14,9 +14,9 @@ namespace cuenta_ahorro.EF.Entities
         [Display(Name = "Saldo")]
         [Required(ErrorMessage = "Saldo es requerido")]
         public double Balance  { get; set; }
-        [ForeignKey("Client")]
         [Display(Name = "Cliente")]
         [Required(ErrorMessage = "Cliente es requerido")]
         public int IdClient { get; set; }
     }
+
 }

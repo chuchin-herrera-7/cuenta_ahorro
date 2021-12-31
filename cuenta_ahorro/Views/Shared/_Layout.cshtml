@@ -51,9 +51,9 @@
                     <ul class="nav">
                         <li class="nav-item nav-category">Principal</li>
                         <li class="nav-item">
-                            <a href="/GoodsReceipt" class="nav-link">
-                                <i class="link-icon" data-feather="truck"></i>
-                                <span class="link-title">Entrada de mercacias</span>
+                            <a href="/Client" class="nav-link">
+                                <i class="link-icon" data-feather="user"></i>
+                                <span class="link-title">Clientes</span>
                             </a>
                         </li>
                     </ul>
@@ -79,14 +79,14 @@
                                             <img src="https://via.placeholder.com/80x80" alt="">
                                         </div>
                                         <div class="info text-center">
-                                            <p class="name font-weight-bold mb-0" id="fullName"></p>
-                                            <p class="email text-muted mb-3" id="email"></p>
+                                            <p class="name font-weight-bold mb-0" id="fullName">@Context.Session.GetString("cuenta-ahorro-inventario-fullName")</p>
+                                            <p class="email text-muted mb-3" id="email">@Context.Session.GetString("cuenta-ahorro-inventario-email")</p>
                                         </div>
                                     </div>
                                     <div class="dropdown-body">
                                         <ul class="profile-nav p-0 pt-3">
                                             <li class="nav-item">
-                                                <a href="javascript:void()" class="nav-link" onclick="Logout()">
+                                                <a href="/Login/Logout" class="nav-link">
                                                     <i data-feather="log-out"></i>
                                                     <span>Cerrar sesión</span>
                                                 </a>
@@ -135,6 +135,7 @@
         <!-- plugin js for this page -->
         <script src="~/template/assets/vendors/datatables.net/jquery.dataTables.js"></script>
         <script src="~/template/assets/vendors/datatables.net-bs4/dataTables.bootstrap4.js"></script>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         <!-- end plugin js for this page -->
         <!-- inject:js -->
         <script src="~/template/assets/vendors/feather-icons/feather.min.js"></script>
@@ -142,8 +143,8 @@
         <!-- endinject -->
         <script type="text/javascript" src="~/js/general.js" asp-append-version="true"></script>
         <script>
-            window.onload = function(){ document.querySelector(".preloader").style.display = "none"; }
-        </script>    
+            window.onload = function () { document.querySelector(".preloader").style.display = "none"; }
+        </script>
 
         @RenderSection("Scripts", required: false)
     </body>

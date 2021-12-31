@@ -26,6 +26,11 @@ namespace cuenta_ahorro.Controllers
             return PartialView("Report", Get(id));
         }
 
+        public ActionResult GetReport(string id)
+        {
+            return PartialView("Index", Get(id));
+        }
+
         public ActionResult Report(string id)
         {
             return new ViewAsPdf(Get(id));
@@ -34,15 +39,17 @@ namespace cuenta_ahorro.Controllers
         private History Get(string id)
         {
             var _openingSavingAccount = new OpeningSavingAccountHelper(_dbContext).GetBy(id).Result.Value;
-            var _client = new ClientHelper(_dbContext).GetBy(_openingSavingAccount.IdClient).Result.Value;
+            var _client = new PersonHelper(_dbContext).GetBy(_openingSavingAccount.IdClient).Result.Value;
             var _managementAccount = new ManagementAccountHelper(_dbContext).Get(_openingSavingAccount.Id).Result.Value;
             var _sumDeposit = _managementAccount.Where(element => element.Type == 1).Sum(item => item.Amount);
             var _sumWithdraw = _managementAccount.Where(element => element.Type == 0).Sum(item => item.Amount);
+            var _totalBalance = (_openingSavingAccount.Balance +_sumDeposit) - _sumWithdraw;
 
             var _history = new History()
             {
                 Deposit = _sumDeposit,
                 WithDraw = _sumWithdraw,
+                TotalBalance = _totalBalance,
                 OpeningSavingAccount = _openingSavingAccount,
                 Client = _client,
                 ManagementAccount = _managementAccount

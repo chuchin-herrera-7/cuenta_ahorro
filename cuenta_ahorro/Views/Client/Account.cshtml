@@ -1,0 +1,143 @@
+﻿@model IEnumerable<cuenta_ahorro.EF.Entities.OpeningSavingAccount>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row position-relative">
+                    <div class="col-lg-4 chat-aside border-lg-right">
+                        <div class="aside-content">
+                            <div class="aside-header">
+                                <div class="d-flex justify-content-between align-items-center pb-2 mb-2">
+                                    <div class="d-flex align-items-center">
+                                        <figure class="mr-2 mb-0">
+                                            <img src="https://via.placeholder.com/30x30" class="img-sm rounded-circle" alt="profile">
+                                            <div class="status online"></div>
+                                        </figure>
+                                        <div>
+                                            <h6>@Context.Session.GetString("cuenta-ahorro-inventario-fullName")</h6>
+                                        </div>
+                                    </div>
+                                    <div class="dropdown">
+                                        <button class="btn p-0" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="icon-lg text-muted pb-3px" data-feather="settings" data-toggle="tooltip" title="Settings"></i>
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="eye" class="icon-sm mr-2"></i> <span class="">Ver Perfil</span></a>
+                                            <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="edit-2" class="icon-sm mr-2"></i> <span class="">Editar Perfil</span></a>
+                                            <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="aperture" class="icon-sm mr-2"></i> <span class="">Agregar estatus</span></a>
+                                            <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="settings" class="icon-sm mr-2"></i> <span class="">Configuración</span></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="aside-body">
+                                <div>
+                                    <p class="text-muted mb-1">Cuentas</p>
+                                    <ul class="list-unstyled chat-list px-1">
+                                        @{
+                                            var count = 0;
+                                            foreach (var item in Model)
+                                            {
+                                            <li class="chat-item pr-1 mb-3">
+                                                <a href="javascript:void(0);" class="d-flex align-items-center" AccountNumber="@item.AccountNumber" id="@item.Id" onclick="GetReport(this)">
+                                                    <div class="d-flex justify-content-between flex-grow border-bottom">
+                                                        <div>
+                                                            <p class="text-body font-weight-bold">@item.AccountNumber</p>
+                                                            <p class="text-body">$ @item.Balance</p>
+                                                        </div>
+                                                        <div class="d-flex flex-column align-items-end">
+                                                            <p class="text-muted tx-13 mb-1"></p>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                                count++;
+                                            }
+                                        }
+                                    </ul>
+                                    <br />
+                                    <button class="btn btn-outline-primary" onclick="NewSavingsAccount()">Aperturar cuenta</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-8 chat-content" id="list-chat-content">
+                        @if (count > 0)
+                        {
+                        <ul class="nav nav-tabs mt-3" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="transacciones-tab" data-toggle="tab" href="#transacciones" role="tab" aria-controls="transacciones" aria-selected="true">
+                                    <div class="d-flex flex-row flex-lg-column flex-xl-row align-items-center">
+                                        <i data-feather="message-square" class="icon-sm mr-sm-2 mr-lg-0 mr-xl-2 mb-md-1 mb-xl-0"></i>
+                                        <p class="d-none d-sm-block">Transacciones</p>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="estado-tab" data-toggle="tab" href="#estado" role="tab" aria-controls="estado" aria-selected="true">
+                                    <div class="d-flex flex-row flex-lg-column flex-xl-row align-items-center">
+                                        <i data-feather="file" class="icon-sm mr-sm-2 mr-lg-0 mr-xl-2 mb-md-1 mb-xl-0"></i>
+                                        <p class="d-none d-sm-block">Estado</p>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="tab-content mt-3">
+                            <div class="tab-pane fade show active" id="transacciones" role="tabpanel" aria-labelledby="transacciones-tab">
+                                <div class="container">
+                                    <div id="alert-transacciones"></div>
+                                    <h3>Solicitud</h3>
+                                    <small>*recuerda que una vez autorizada tu solicitud podras dpositar o retirar tu efectivo</small>
+                                    <p class="mt-2">¿Que transacciones deseas realizar?</p>
+                                    <div class="form-check form-check-inline">
+                                        <input type="radio" class="form-check-input" name="radioInline" id="radioInline" value="1" checked>
+                                        <label class="form-check-label" for="radioInline">
+                                            Deposito
+                                        </label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input type="radio" class="form-check-input" name="radioInline" id="radioInline" value="0">
+                                        <label class="form-check-label" for="radioInline">
+                                            Retiro
+                                        </label>
+                                    </div>
+                                    <br />
+                                    <div class="mb-3">
+                                        <label class="form-label">Monto</label>
+                                        <input type="text" class="form-control" id="Amount" autocomplete="off" placeholder="Monto">
+                                        <input type="hidden" class="form-control" id="IdOpeningSavingAccount">
+                                    </div>
+                                    <button class="btn btn-outline-primary" onclick="NewManagementAccount()">Enviar</button>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane fade" id="estado" role="tabpanel" aria-labelledby="estado-tab">
+
+                            </div>
+                        </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modal-client" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div id="alert-modal-client"></div>
+                <div id="modal-body-client"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script type="text/javascript" src="~/js/history.js" asp-append-version="true"></script>
+    <script type="text/javascript" src="~/js/management-account.js" asp-append-version="true"></script>
+    <script type="text/javascript" src="~/js/opening-savings-account.js" asp-append-version="true"></script>
+}

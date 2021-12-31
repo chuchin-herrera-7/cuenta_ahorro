@@ -2,8 +2,8 @@
 
 <div class="container-fluid d-flex justify-content-between">
     <div class="col-lg-3 pl-0">
-        <a href="#" class="noble-ui-logo d-block mt-3">Noble<span>UI</span></a>                 
-        <p class="mt-1 mb-1"><b>NobleUI Themes</b></p>
+        <a href="#" class="noble-ui-logo d-block mt-3">Cuenta<span>Ahorro</span></a>                 
+        <p class="mt-1 mb-1"><b>Cuenta ahorro</b></p>
         <p>108,<br> Great Russell St,<br>London, WC1B 3NA.</p>
         <h5 class="mt-5 mb-2 text-muted">Nombre :</h5>
         <p>@Model.Client.FullName</p>
@@ -13,8 +13,7 @@
         <h6 class="text-right mb-5 pb-4"># @Model.OpeningSavingAccount.AccountNumber</h6>
         <p class="text-right mb-1">Saldo Total</p>
         <h4 class="text-right font-weight-normal">$ @Model.OpeningSavingAccount.Balance</h4>
-        <h6 class="mb-0 mt-3 text-right font-weight-normal mb-2"><span class="text-muted">Fecha Apertura :</span> 25rd Jan 2020</h6>
-        <h6 class="text-right font-weight-normal"><span class="text-muted">Fecha Actual :</span> 12th Jul 2020</h6>
+        <h6 class="text-right font-weight-normal"><span class="text-muted">Fecha Actual :</span> @DateTime.Now.ToString("dd/MM/yyyy")</h6>
     </div>
 </div>
 <div class="container-fluid mt-5 d-flex justify-content-center w-100">

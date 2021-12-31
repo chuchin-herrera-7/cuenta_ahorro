@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace cuenta_ahorro.EF.Entities
 {
@@ -14,9 +13,9 @@ namespace cuenta_ahorro.EF.Entities
         [Display(Name = "Tipo")]
         [Required(ErrorMessage = "Tipo")]
         public int Type { get; set; }
-        [ForeignKey("OpeningSavingAccount")]
         [Display(Name = "Cuenta ahorro")]
         [Required(ErrorMessage = "Cuenta ahorro")]
         public int IdOpeningSavingAccount { get; set; }
+        public int Status { get; set; }
     }
 }

@@ -1,10 +1,11 @@
-﻿@model IEnumerable<cuenta_ahorro.EF.Entities.Client>
+﻿@model IEnumerable<cuenta_ahorro.EF.Entities.Person>
 
 <table class="table" id="table-client">
     <thead>
         <tr>
             <th class="text-center"># Identificación</th>
             <th>Nombre</th>
+            <th>Correo</th>
         </tr>
     </thead>
     <tbody>
@@ -12,8 +13,10 @@
             foreach (var item in Model)
             {
                 <tr>
-                    <td  class="text-center"> SPF - @Html.DisplayFor(modelItem => item.Id) </td>
+                    <td class="text-center"> SPF - @Html.DisplayFor(modelItem => item.Id) </td>
                     <td>@Html.DisplayFor(modelItem => item.FullName) </td>
+                    <td>@Html.DisplayFor(modelItem => item.Email) </td>
+                   
                 </tr>
             }
         }
