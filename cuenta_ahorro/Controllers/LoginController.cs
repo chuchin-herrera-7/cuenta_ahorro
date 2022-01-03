@@ -70,6 +70,7 @@ namespace cuenta_ahorro.Controllers
             HttpContext.Session.SetInt32("cuenta-ahorro-user-key", user.Id);
             HttpContext.Session.SetString("cuenta-ahorro-inventario-fullName", user.FullName);
             HttpContext.Session.SetString("cuenta-ahorro-inventario-email", user.Email);
+            HttpContext.Session.SetInt32("cuenta-ahorro-type", user.Type);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using cuenta_ahorro.EF;
 using cuenta_ahorro.EF.Entities;
 using cuenta_ahorro.EF.Helpers;
+using cuenta_ahorro.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -19,11 +20,13 @@ namespace cuenta_ahorro.Controllers
             _logger = logger;
         }
 
+        [AccessView(IsPartialView = false, Type = 1)]
         public ActionResult Index(int id)
         {
             return View(new ManagementAccountHelper(_dbContext).Get(id).Result.Value);
         }
 
+        [AccessView(IsPartialView = false, Type = 1)]
         public async Task<ActionResult> Create([FromBody] ManagementAccount _managementAccount)
         {
             try

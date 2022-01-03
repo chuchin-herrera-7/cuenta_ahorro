@@ -1,7 +1,6 @@
 ﻿using cuenta_ahorro.EF.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -29,7 +28,7 @@ namespace cuenta_ahorro.EF.Helpers
             return await _dbContext.Person.Where(item => item.Type == 1).ToListAsync();
         }
 
-        // Obtener Personas
+        // Validar si existe usuario mediante correo y contraseña
         public async Task<ActionResult<Person>> ValidateUser(string Email, string Password)
         {
             return await _dbContext.Person.Where(item => item.Email == Email && item.Password == Password).FirstOrDefaultAsync();

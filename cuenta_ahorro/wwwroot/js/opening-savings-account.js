@@ -14,10 +14,11 @@ function NewSavingsAccount() {
     })
     .then((willDelete) => {
         if (willDelete) {
-            Axios("/Opening/NewOpeningSavingsAccount", {}).then(response => {
+            Axios("/Opening/NewOpeningSavingsAccount", {}).then(async response => {
                 let data = response.data
-                CloseModal('modal-client')
-                Alert('alert-client', 'success', '', data.message)
+                Alert('alert-account', 'success', '', data.message)
+                await AccountList()
+                InitialHistory()
             }).catch(error => {
                 console.log(error)
             })

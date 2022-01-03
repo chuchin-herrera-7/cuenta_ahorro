@@ -40,6 +40,13 @@ async function List() {
     })
 }
 
+async function AccountList() {
+    await axios.get('/Client/AccountList').then(response => {
+        document.getElementById("list-account").innerHTML = response.data
+    })
+}
+
+
 function Validate() {
     let FullName = document.getElementById("FullName")
     let Email = document.getElementById("Email")

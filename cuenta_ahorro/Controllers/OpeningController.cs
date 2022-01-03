@@ -24,17 +24,14 @@ namespace cuenta_ahorro.Controllers
             Email = new Email_(Configuration);
         }
 
+        [AccessView(IsPartialView = false, Type = 1)]
         public ActionResult Index(int id)
         {
             return View(new OpeningSavingAccountHelper(_dbContext).Get(id).Result.Value);
-        } 
-        
-        public ActionResult Create()
-        {
-            return PartialView();
         }
 
         [HttpPost]
+        [AccessView(IsPartialView = true, Type = 1)]
         public async Task<ActionResult> NewOpeningSavingsAccount()
         {
             try
@@ -86,26 +83,6 @@ namespace cuenta_ahorro.Controllers
                 throw ex;
             }
 
-        }
-
-        [HttpPost]
-        public async Task<ActionResult> Create([FromBody] OpeningSavingAccount _openingSavingAccount)
-        {
-            try
-            {
-                if(_openingSavingAccount.Balance <= 0)
-                    return BadRequest(new { message = "El saldo no puede ser menor e igual a 0" });
-
-                _openingSavingAccount.IdClient = (int)HttpContext.Session.GetInt32("cuenta-ahorro-user-key");
-                _dbContext.Add(_openingSavingAccount);
-                await _dbContext.SaveChangesAsync();
-                return Ok(new { message = string.Format("Nueva cuenta de ahorro creada !!") });
-            }
-            catch (Exception ex)
-            {
-                _logger.LogWarning(ex.Message);
-                return BadRequest(new { message = "No se pudieron guardar los cambios." });
-            }
         }
     }
 }

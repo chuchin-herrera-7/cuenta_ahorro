@@ -24,29 +24,41 @@ namespace cuenta_ahorro.Controllers
             Email = new Email_(Configuration);
         }
 
+        [AccessView(IsPartialView = false, Type = 0)]
         public ActionResult Index()
         {
             _logger.LogInformation("Obteniendo clientes!!");
             return View(new PersonHelper(_dbContext).Get().Result.Value);
         }
 
+        [AccessView(IsPartialView = false, Type = 1)]
         public ActionResult Account()
         {
             var key = (int)HttpContext.Session.GetInt32("cuenta-ahorro-user-key");
             return View(new OpeningSavingAccountHelper(_dbContext).GetBySession(key).Result.Value);
         }
 
+        [AccessView(IsPartialView = true, Type = 1)]
+        public ActionResult AccountList()
+        {
+            var key = (int)HttpContext.Session.GetInt32("cuenta-ahorro-user-key");
+            return PartialView(new OpeningSavingAccountHelper(_dbContext).GetBySession(key).Result.Value);
+        }
+
+        [AccessView(IsPartialView = true, Type = 0)]
         public ActionResult Create()
         {
             return PartialView();
         }
 
+        [AccessView(IsPartialView = true, Type = 0)]
         public ActionResult List()
         {
             return PartialView(new PersonHelper(_dbContext).Get().Result.Value);
         }
 
         [HttpPost]
+        [AccessView(IsPartialView = true, Type = 0)]
         public async Task<ActionResult> Create([FromBody] Person _person)
         {
             try
@@ -62,7 +74,7 @@ namespace cuenta_ahorro.Controllers
             }
         }
 
-        public string SendMail(Person _person)
+        private string SendMail(Person _person)
         {
             try
             {
